@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Calculator</string>
+
+    <string name="tv">This is TextView:</string>
+    <string name="tv_value">Hello!</string>
+    <string name="ems_value">MMM</string>
+    <string name="et">This is EditText:</string>
+    <string name="et_hint">Enter something</string>
+    <string name="bt">This is button</string>
+    <string name="bt_clicked">Clicked # times</string>
+    <string name="sw">This is switch:</string>
+    <string name="cb">This is check box:</string>
+    <string name="state_on">On</string>
+    <string name="state_off">Off</string>
+    <string name="tb">This is Toggle Button:</string>
+    <string name="tb_hint">Show/hide CalendarView</string>
+    <string name="bt_label">Click me!</string>
+    <string name="cv">This is Calendar View:</string>
+    <string name="field_text">Text:</string>
+    <string name="field_person">Person name:</string>
+    <string name="field_phone">Phone:</string>
+    <string name="field_number">Number:</string>
+    <string name="field_password">Password:</string>
+    <string name="field_email">Email:</string>
+    <string name="layout_1">To widgets</string>
+    <string name="layout_2">To attributes</string>
 </resources>
