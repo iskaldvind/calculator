@@ -1,27 +1,29 @@
 <resources>
     <string name="app_name">Calculator</string>
 
-    <string name="tv">This is TextView:</string>
-    <string name="tv_value">Hello!</string>
-    <string name="ems_value">MMM</string>
-    <string name="et">This is EditText:</string>
-    <string name="et_hint">Enter something</string>
-    <string name="bt">This is button</string>
-    <string name="bt_clicked">Clicked # times</string>
-    <string name="sw">This is switch:</string>
-    <string name="cb">This is check box:</string>
-    <string name="state_on">On</string>
-    <string name="state_off">Off</string>
-    <string name="tb">This is Toggle Button:</string>
-    <string name="tb_hint">Show/hide CalendarView</string>
-    <string name="bt_label">Click me!</string>
-    <string name="cv">This is Calendar View:</string>
-    <string name="field_text">Text:</string>
-    <string name="field_person">Person name:</string>
-    <string name="field_phone">Phone:</string>
-    <string name="field_number">Number:</string>
-    <string name="field_password">Password:</string>
-    <string name="field_email">Email:</string>
-    <string name="layout_1">To widgets</string>
-    <string name="layout_2">To attributes</string>
+    <string name="bt_0">0</string>
+    <string name="bt_pi">\u03C0</string>
+    <string name="bt_1">1</string>
+    <string name="bt_2">2</string>
+    <string name="bt_3">3</string>
+    <string name="bt_4">4</string>
+    <string name="bt_5">5</string>
+    <string name="bt_6">6</string>
+    <string name="bt_7">7</string>
+    <string name="bt_8">8</string>
+    <string name="bt_9">9</string>
+    <string name="bt_plus">+</string>
+    <string name="bt_minus">-</string>
+    <string name="bt_multiply">*</string>
+    <string name="bt_divide">/</string>
+    <string name="bt_dot">.</string>
+    <string name="bt_equals">=</string>
+    <string name="bt_reset">CE</string>
+    <string name="bt_back">\u232B</string>
+    <string name="bt_sqrt">\u221A</string>
+    <string name="bt_percent">%</string>
+    <string name="bt_sin">sin</string>
+    <string name="bt_cos">cos</string>
+    <string name="bt_rnd">rnd</string>
+    <string name="screen_description">Calculator Screen</string>
 </resources>
