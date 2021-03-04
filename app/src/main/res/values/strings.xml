@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Calculator</string>
-
+    <string name="app_name">Calculator</string>.
     <string name="bt_0">0</string>
     <string name="bt_pi">\u03C0</string>
     <string name="bt_1">1</string>
