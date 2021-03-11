@@ -25,4 +25,6 @@
     <string name="bt_cos">cos</string>
     <string name="bt_rnd">rnd</string>
     <string name="screen_description">Calculator Screen</string>
+    <string name="ok_button">OK</string>
+    <string name="dark_theme">Dark theme</string>
 </resources>
