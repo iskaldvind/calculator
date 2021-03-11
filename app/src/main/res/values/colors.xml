@@ -7,7 +7,9 @@
     <color name="colorSecondaryLight">#e5ffff</color>
     <color name="colorSecondaryDark">#82ada9</color>
     <color name="colorAccent">#ef5350</color>
+    <color name="colorAccentLight">#efaaaa</color>
     <color name="colorLight">#eeeeee</color>
     <color name="colorShadowed">#888888</color>
+    <color name="colorShadowedLight">#bbbbbb</color>
     <color name="colorDark">#111111</color>
 </resources>

@@ -1,12 +1,15 @@
 package io.iskaldvind.calculator;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
 
 import io.iskaldvind.calculator.internal.Memory;
 import io.iskaldvind.calculator.internal.Operator;
@@ -23,12 +26,16 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings({"FieldCanBeLocal"})
     private final String ERROR = "ERROR";
     
+    private int theme = R.style.AppThemeLight;
+    
     private static final String PREFIX = MainActivity.class.getCanonicalName();
     public static final String MEMORY = PREFIX + ".memory";
     public static final String RESULT = PREFIX + ".result";
     public static final String HELPER = PREFIX + ".helper";
     public static final String OPERATOR = PREFIX + ".operator";
     public static final String MAIN = PREFIX + ".main";
+    public static final String THEME = PREFIX + ".theme";
+    public static final int ACTIVITY_CODE = 100;
     
     private double result;
     private Memory memory;
@@ -36,81 +43,87 @@ public class MainActivity extends AppCompatActivity {
     private TextView screenMain;
     private TextView screenOperator;
     private TextView screenHelper;
+
+    private SharedPreferences sharedPref;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState == null) {
+            memory = new Memory();
+        }
+        sharedPref = getPreferences(MODE_PRIVATE);
+        theme = sharedPref.getInt(THEME, R.style.AppThemeLight);
+        setTheme(theme);
+        
         setContentView(R.layout.activity_main);
 
         screenMain = findViewById(R.id.screen_main);
         screenHelper= findViewById(R.id.screen_helper);
         screenOperator = findViewById(R.id.screen_operator);
 
-        TextView button0 = findViewById(R.id.bt_0);
+        MaterialButton button0 = findViewById(R.id.bt_0);
         button0.setOnClickListener(it -> onClickDigit(0));
-        TextView button1 = findViewById(R.id.bt_1);
+        MaterialButton button1 = findViewById(R.id.bt_1);
         button1.setOnClickListener(it -> onClickDigit(1));
-        TextView button2 = findViewById(R.id.bt_2);
+        MaterialButton button2 = findViewById(R.id.bt_2);
         button2.setOnClickListener(it -> onClickDigit(2));
-        TextView button3 = findViewById(R.id.bt_3);
+        MaterialButton button3 = findViewById(R.id.bt_3);
         button3.setOnClickListener(it -> onClickDigit(3));
-        TextView button4 = findViewById(R.id.bt_4);
+        MaterialButton button4 = findViewById(R.id.bt_4);
         button4.setOnClickListener(it -> onClickDigit(4));
-        TextView button5 = findViewById(R.id.bt_5);
+        MaterialButton button5 = findViewById(R.id.bt_5);
         button5.setOnClickListener(it -> onClickDigit(5));
-        TextView button6 = findViewById(R.id.bt_6);
+        MaterialButton button6 = findViewById(R.id.bt_6);
         button6.setOnClickListener(it -> onClickDigit(6));
-        TextView button7 = findViewById(R.id.bt_7);
+        MaterialButton button7 = findViewById(R.id.bt_7);
         button7.setOnClickListener(it -> onClickDigit(7));
-        TextView button8 = findViewById(R.id.bt_8);
+        MaterialButton button8 = findViewById(R.id.bt_8);
         button8.setOnClickListener(it -> onClickDigit(8));
-        TextView button9 = findViewById(R.id.bt_9);
+        MaterialButton button9 = findViewById(R.id.bt_9);
         button9.setOnClickListener(it -> onClickDigit(9));
 
-        TextView buttonDot = findViewById(R.id.bt_dot);
+        MaterialButton buttonDot = findViewById(R.id.bt_dot);
         buttonDot.setOnClickListener(it -> onClickDot());
 
-        TextView buttonPi = findViewById(R.id.bt_pi);
+        MaterialButton buttonPi = findViewById(R.id.bt_pi);
         buttonPi.setOnClickListener(it -> onClickPi());
 
-        TextView buttonRnd = findViewById(R.id.bt_rnd);
+        MaterialButton buttonRnd = findViewById(R.id.bt_rnd);
         buttonRnd.setOnClickListener(it -> onClickRnd());
-        buttonRnd.setVisibility(View.INVISIBLE);
 
-        TextView buttonBack = findViewById(R.id.bt_back);
+        MaterialButton buttonBack = findViewById(R.id.bt_back);
         buttonBack.setOnClickListener(it -> onClickBack());
 
-        TextView buttonReset = findViewById(R.id.bt_reset);
+        MaterialButton buttonReset = findViewById(R.id.bt_reset);
         buttonReset.setOnClickListener(it -> onClickReset());
 
-        TextView buttonEquals = findViewById(R.id.bt_equals);
+        MaterialButton buttonEquals = findViewById(R.id.bt_equals);
         buttonEquals.setOnClickListener(it -> onClickEquals());
-        
-        TextView buttonSin = findViewById(R.id.bt_sin);
-        buttonSin.setOnClickListener(it -> onClickUnary(Operator.SIN));
-        buttonSin.setVisibility(View.INVISIBLE);
-        TextView buttonCos = findViewById(R.id.bt_cos);
-        buttonCos.setOnClickListener(it -> onClickUnary(Operator.COS));
-        buttonCos.setVisibility(View.INVISIBLE);
-        TextView buttonSqrt = findViewById(R.id.bt_sqrt);
-        buttonSqrt.setOnClickListener(it -> onClickUnary(Operator.SQRT));
-        buttonSqrt.setVisibility(View.INVISIBLE);
 
-        TextView buttonPlus = findViewById(R.id.bt_plus);
+        MaterialButton buttonSin = findViewById(R.id.bt_sin);
+        buttonSin.setOnClickListener(it -> onClickUnary(Operator.SIN));
+        MaterialButton buttonCos = findViewById(R.id.bt_cos);
+        buttonCos.setOnClickListener(it -> onClickUnary(Operator.COS));
+        MaterialButton buttonSqrt = findViewById(R.id.bt_sqrt);
+        buttonSqrt.setOnClickListener(it -> onClickUnary(Operator.SQRT));
+
+        MaterialButton buttonPlus = findViewById(R.id.bt_plus);
         buttonPlus.setOnClickListener(it -> onClickBinary(Operator.PLUS));
-        TextView buttonMinus = findViewById(R.id.bt_minus);
+        MaterialButton buttonMinus = findViewById(R.id.bt_minus);
         buttonMinus.setOnClickListener(it -> onClickBinary(Operator.MINUS));
-        TextView buttonMultiply = findViewById(R.id.bt_multiply);
+        MaterialButton buttonMultiply = findViewById(R.id.bt_multiply);
         buttonMultiply.setOnClickListener(it -> onClickBinary(Operator.MULTIPLY));
-        TextView buttonDivide = findViewById(R.id.bt_divide);
+        MaterialButton buttonDivide = findViewById(R.id.bt_divide);
         buttonDivide.setOnClickListener(it -> onClickBinary(Operator.DIVIDE));
-        TextView buttonPercent = findViewById(R.id.bt_percent);
-        buttonPercent.setOnClickListener(it -> onClickBinary(Operator.PERCENT));
-        buttonPercent.setVisibility(View.INVISIBLE);
+        MaterialButton buttonPercent = findViewById(R.id.bt_percent);
+        buttonPercent.setOnClickListener(it -> onClickUnary(Operator.PERCENT));
+
+        MaterialButton buttonSettings = findViewById(R.id.bt_settings);
+        buttonSettings.setOnClickListener(it -> onClickSettings());
 
         if (savedInstanceState == null) {
-            Log.d("!!!", "NO");
-            memory = new Memory();
             reset();
         }
     }
@@ -125,17 +138,19 @@ public class MainActivity extends AppCompatActivity {
         screenHelper.setText(savedInstanceState.getString(HELPER));
         screenOperator.setText(savedInstanceState.getString(OPERATOR));
         screenMain.setText(savedInstanceState.getString(MAIN));
+        theme = savedInstanceState.getInt(THEME);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         Log.d("MAIN", "onSaveInstanceState");
         super.onSaveInstanceState(outState);
-        outState.putSerializable(OPERATOR, memory);
+        outState.putSerializable(MEMORY, memory);
         outState.putDouble(RESULT, result);
         outState.putString(HELPER, screenHelper.getText().toString());
         outState.putString(OPERATOR, screenOperator.getText().toString());
         outState.putString(MAIN, screenMain.getText().toString());
+        outState.putInt(THEME, theme);
     }
      
 
@@ -184,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     private void onClickPi() {
         Log.d("Main", "Button Pi click");
         State currentState = memory.getCurrentState();
-        if (currentState == State.COLLECTING_OPERAND_1 || currentState == State.COLLECTING_OPERAND_2) {
+        if (currentState == State.COLLECTING_OPERAND_1 || currentState == State.COLLECTING_OPERAND_2 || currentState == State.STATIC_RESULT) {
             screenMain.setText(formatValueToDisplay(PI));
         }
     }
@@ -192,6 +207,23 @@ public class MainActivity extends AppCompatActivity {
     
     private void onClickRnd() {
         Log.d("Main", "Button Rnd click");
+        State currentState = memory.getCurrentState();
+        if (currentState == State.COLLECTING_OPERAND_1 || currentState == State.COLLECTING_OPERAND_2 || currentState == State.STATIC_RESULT) {
+            String currentVal = screenMain.getText().toString();
+            boolean isNotInteger = currentVal.contains(".");
+            if (!isNotInteger && !currentVal.equals("0")) {
+                int val = Integer.parseInt(currentVal);
+                int res = (int) Math.floor(Math.random() * val);
+                screenMain.setText(formatValueToDisplay(res));
+            } else if (currentVal.equals("0")) {
+                double res = Math.random();
+                screenMain.setText(formatValueToDisplay(res));
+            } else {
+                double val = Double.parseDouble(currentVal);
+                double res = Math.random() * val;
+                screenMain.setText(formatValueToDisplay(res));
+            }
+        }
     }
 
     
@@ -233,6 +265,51 @@ public class MainActivity extends AppCompatActivity {
     
     private void onClickUnary(Operator passedOperator) {
         Log.d("Main", "Button " + passedOperator + " click");
+        State currentState = memory.getCurrentState();
+        if (currentState == State.COLLECTING_OPERAND_1 || currentState == State.STATIC_RESULT || currentState == State.COLLECTING_OPERAND_2) {
+            double newVal = Double.parseDouble(screenMain.getText().toString());
+            switch (passedOperator) {
+                case SIN: {
+                    if (currentState == State.STATIC_RESULT) {
+                        newVal = Math.sin(result);
+                    } else {
+                        newVal = Math.sin(newVal);
+                    }
+                    break;
+                }
+                case COS: {
+                    if (currentState == State.STATIC_RESULT) {
+                        newVal = Math.cos(result);
+                    } else {
+                        newVal = Math.cos(newVal);
+                    }
+                    break;
+                }
+                case SQRT: {
+                    if (newVal >= 0) {
+                        if (currentState == State.STATIC_RESULT) {
+                            newVal = Math.sqrt(result);
+                        } else {
+                            newVal = Math.sqrt(newVal);
+                        }
+                    } else {
+                        reset();
+                        memory.setCurrentState(State.ERROR);
+                        screenMain.setText(ERROR);
+                    }
+                    break;
+                }
+                case PERCENT: {
+                    if (currentState == State.COLLECTING_OPERAND_2) {
+                       double memorized = memory.getMemorizedValue();
+                       newVal = (newVal / 100) * memorized;
+                    }
+                    break;
+                }
+                
+            }
+            screenMain.setText(formatValueToDisplay(newVal));
+        }
     }
 
     
@@ -284,8 +361,10 @@ public class MainActivity extends AppCompatActivity {
     
     private String formatValueToDisplay(double value) {
         double roundedValue = Math.round(value);
-        String displayString = Math.abs(value - roundedValue) < INTEGER_TRESHOLD ? String.valueOf( (int) roundedValue ) : String.valueOf(value);
-        if (displayString.length() > 11 && displayString.contains(".")) {
+        @SuppressLint("DefaultLocale") String displayString = Math.abs(value - roundedValue) < INTEGER_TRESHOLD ? String.valueOf((int) roundedValue) : String.format("%.12f",value);
+        if (Math.abs(value) < INTEGER_TRESHOLD || (value > 0 && displayString.length() > 10 && displayString.substring(0, 10).equals("0.00000000")) || value < 0 && displayString.length() > 11 && displayString.substring(1, 9).equals("0.00000000")) {
+            return "0";
+        } else if (displayString.length() > 11 && displayString.contains(".")) {
             return displayString.substring(0, 10);
         } else if (displayString.length() > 10) {
             return displayString.substring(0, 9);
@@ -323,6 +402,27 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     result = val1 / val2;
                 }
+            }
+        }
+    }
+    
+    private void onClickSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra(THEME, theme);
+        startActivityForResult(intent, ACTIVITY_CODE);
+    }
+    
+    @SuppressLint("ApplySharedPref")
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent result) {
+        super.onActivityResult(requestCode, responseCode, result);
+        if (result != null && responseCode == RESULT_OK) {
+            if (theme != result.getIntExtra(THEME, R.style.AppThemeLight)) {
+                theme = result.getIntExtra(THEME, R.style.AppThemeLight);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt(THEME, theme);
+                editor.commit();
+                recreate();
             }
         }
     }
